@@ -21,7 +21,9 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentName;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Priority;
+use EzSystems\EzPlatformQueryLanguage\Core\ErrorListener\ExceptionErrorListener;
 use EzSystems\EzPlatformQueryLanguage\Core\Exception\MissingParameterException;
+use EzSystems\EzPlatformQueryLanguage\Core\Exception\SyntaxErrorException;
 use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLLexer;
 use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLParser;
 use EzSystems\EzPlatformQueryLanguage\Core\Visitor\QueryVisitor;
@@ -31,14 +33,14 @@ use PHPUnit\Framework\TestCase;
 final class QueryVisitorTest extends TestCase
 {
     /**
-     * @dataProvider dataProviderForVisitor
+     * @dataProvider dataProviderForSelectLocation
      */
-    public function testVisitor(string $query, array $params, QueryVisitorResult $expectedResult): void
+    public function testSelectLocation(string $query, array $params, QueryVisitorResult $expectedResult): void
     {
         $this->assertEquals($expectedResult, $this->doVisitQuery($query, $params));
     }
 
-    public function dataProviderForVisitor(): iterable
+    public function dataProviderForSelectLocation(): iterable
     {
         yield 'select with offset' => [
             'SELECT LOCATION OFFSET 100',
@@ -294,10 +296,21 @@ final class QueryVisitorTest extends TestCase
         );
     }
 
+    public function testParseError(): void
+    {
+        $this->expectException(SyntaxErrorException::class);
+        $this->expectErrorMessage("Line 1:21 mismatched input 'FullText' expecting {K_FALSE, K_TRUE, INT, DOUBLE, STRING, PARAMETER_NAME}");
+
+        $this->doVisitQuery('SELECT CONTENT LIMIT FullText = "foo"');
+    }
+
     private function doVisitQuery(string $query, array $params = []): QueryVisitorResult
     {
         $lexer = new EZQLLexer(InputStream::fromString($query));
+
         $parser = new EZQLParser(new CommonTokenStream($lexer));
+        $parser->removeErrorListeners();
+        $parser->addErrorListener(new ExceptionErrorListener());
 
         return $parser->stmt()->accept(
             new QueryVisitor($params)

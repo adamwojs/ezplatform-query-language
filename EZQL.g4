@@ -59,7 +59,7 @@ argumentRange:
     a=argument '..' b=argument;
 
 argumentList:
-    argument (',' argument)*;
+    '(' argument (',' argument)* ')';
 
 argument:
     parameter | scalar;

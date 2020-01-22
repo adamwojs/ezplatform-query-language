@@ -10,6 +10,7 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 use EzSystems\EzPlatformQueryLanguage\API\Repository\QueryLanguageService as QueryLanguageServiceInterface;
+use EzSystems\EzPlatformQueryLanguage\Core\ErrorListener\ExceptionErrorListener;
 use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLLexer;
 use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLParser;
 use EzSystems\EzPlatformQueryLanguage\Core\Visitor\QueryVisitor;
@@ -52,7 +53,10 @@ final class QueryLanguageService implements QueryLanguageServiceInterface
     private function compileQuery(string $query, array $params): QueryVisitorResult
     {
         $lexer = new EZQLLexer(InputStream::fromString($query));
+
         $parser = new EZQLParser(new CommonTokenStream($lexer));
+        $parser->removeErrorListeners();
+        $parser->addErrorListener(new ExceptionErrorListener());
 
         return $parser->select()->accept(new QueryVisitor($params));
     }
