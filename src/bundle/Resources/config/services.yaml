@@ -4,3 +4,11 @@ services:
         autoconfigure: true
         public: false
 
+    EzSystems\EzPlatformQueryLanguage\API\Repository\QueryLanguageService:
+        alias: EzSystems\EzPlatformQueryLanguage\Core\Repository\QueryLanguageService
+
+    EzSystems\EzPlatformQueryLanguage\Core\Repository\QueryLanguageService: ~
+
+    EzSystems\EzPlatformQueryLanguage\Core\QueryType\EZQLQueryType:
+        tags:
+            - { name: ezpublish.query_type, alias: EZQL }
