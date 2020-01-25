@@ -58,6 +58,6 @@ final class QueryLanguageService implements QueryLanguageServiceInterface
         $parser->removeErrorListeners();
         $parser->addErrorListener(new ExceptionErrorListener());
 
-        return $parser->select()->accept(new QueryVisitor($params));
+        return $parser->stmt()->accept(new QueryVisitor($params));
     }
 }
