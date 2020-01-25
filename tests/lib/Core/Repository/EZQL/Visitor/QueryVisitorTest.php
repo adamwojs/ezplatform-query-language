@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformQueryLanguage\Tests\Core\Visitor;
+namespace EzSystems\EzPlatformQueryLanguage\Tests\Core\Repository\EZQL\Visitor;
 
 use Antlr\Antlr4\Runtime\CommonTokenStream;
 use Antlr\Antlr4\Runtime\InputStream;
@@ -21,13 +21,13 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentName;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Priority;
-use EzSystems\EzPlatformQueryLanguage\Core\ErrorListener\ExceptionErrorListener;
-use EzSystems\EzPlatformQueryLanguage\Core\Exception\MissingParameterException;
-use EzSystems\EzPlatformQueryLanguage\Core\Exception\SyntaxErrorException;
-use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLLexer;
-use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLParser;
-use EzSystems\EzPlatformQueryLanguage\Core\Visitor\QueryVisitor;
-use EzSystems\EzPlatformQueryLanguage\Core\Visitor\QueryVisitorResult;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\ErrorListener\ExceptionErrorListener;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Exception\MissingParameterException;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Exception\SyntaxErrorException;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLLexer;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLParser;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Visitor\QueryVisitor;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Visitor\QueryVisitorResult;
 use PHPUnit\Framework\TestCase;
 
 final class QueryVisitorTest extends TestCase

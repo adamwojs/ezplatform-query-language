@@ -4,7 +4,7 @@
  * Generated from EZQL.g4 by ANTLR 4.8
  */
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\Parser {
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
     use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
     use Antlr\Antlr4\Runtime\Atn\LexerATNSimulator;
     use Antlr\Antlr4\Runtime\Lexer;

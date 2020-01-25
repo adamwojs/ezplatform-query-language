@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\ErrorListener;
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\ErrorListener;
 
 use Antlr\Antlr4\Runtime\Error\Exceptions\RecognitionException;
 use Antlr\Antlr4\Runtime\Error\Listeners\BaseErrorListener;
 use Antlr\Antlr4\Runtime\Recognizer;
-use EzSystems\EzPlatformQueryLanguage\Core\Exception\SyntaxErrorException;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Exception\SyntaxErrorException;
 
 final class ExceptionErrorListener extends BaseErrorListener
 {

@@ -4,7 +4,7 @@
  * Generated from EZQL.g4 by ANTLR 4.8
  */
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\Parser {
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
     use Antlr\Antlr4\Runtime\Atn\ATN;
     use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
     use Antlr\Antlr4\Runtime\Atn\ParserATNSimulator;
@@ -1263,13 +1263,13 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Parser {
     }
 }
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\Parser\Context {
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\Context {
     use Antlr\Antlr4\Runtime\ParserRuleContext;
     use Antlr\Antlr4\Runtime\Token;
     use Antlr\Antlr4\Runtime\Tree\ParseTreeVisitor;
     use Antlr\Antlr4\Runtime\Tree\TerminalNode;
-    use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLParser;
-    use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLVisitor;
+    use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLParser;
+    use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLVisitor;
 
     class StmtContext extends ParserRuleContext
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\Visitor;
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Visitor;
 
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
@@ -16,10 +16,11 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
-use EzSystems\EzPlatformQueryLanguage\Core\Exception\MissingParameterException;
-use EzSystems\EzPlatformQueryLanguage\Core\Parser\Context;
-use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLBaseVisitor;
-use EzSystems\EzPlatformQueryLanguage\Core\Parser\EZQLParser;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\Context;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLParser;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Exception\MissingParameterException;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLOperator;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLBaseVisitor;
 use RuntimeException;
 
 final class QueryVisitor extends EZQLBaseVisitor
@@ -148,34 +149,34 @@ final class QueryVisitor extends EZQLBaseVisitor
     {
         switch ($context->op->getType()) {
             case EZQLParser::EQ:
-                return Operator::EQ;
+                return EZQLOperator::EQ;
             case EZQLParser::K_IN:
-                return Operator::IN;
+                return EZQLOperator::IN;
             case EZQLParser::GT:
-                return Operator::GT;
+                return EZQLOperator::GT;
             case EZQLParser::GTE:
-                return Operator::GTE;
+                return EZQLOperator::GTE;
             case EZQLParser::LT:
-                return Operator::LT;
+                return EZQLOperator::LT;
             case EZQLParser::LTE:
-                return Operator::LTE;
+                return EZQLOperator::LTE;
             case EZQLParser::K_BETWEEN:
-                return Operator::BETWEEN;
+                return EZQLOperator::BETWEEN;
             case EZQLParser::K_LIKE:
-                return Operator::LIKE;
+                return EZQLOperator::LIKE;
             case EZQLParser::K_CONTAINS:
-                return Operator::CONTAINS;
+                return EZQLOperator::CONTAINS;
         }
     }
 
     public function visitNotEQ(Context\NotEQContext $context): string
     {
-        return Operator::NEQ;
+        return EZQLOperator::NEQ;
     }
 
     public function visitNotInOperator(Context\NotInOperatorContext $context): string
     {
-        return Operator::NOT_IN;
+        return EZQLOperator::NOT_IN;
     }
 
     public function visitMatchAllExpr(Context\MatchAllExprContext $context): Criterion
@@ -358,12 +359,12 @@ final class QueryVisitor extends EZQLBaseVisitor
         $isNegation = false;
 
         switch ($op) {
-            case Operator::NEQ:
-                $op = Operator::EQ;
+            case EZQLOperator::NEQ:
+                $op = EZQLOperator::EQ;
                 $isNegation = true;
                 break;
-            case Operator::NOT_IN:
-                $op = Operator::IN;
+            case EZQLOperator::NOT_IN:
+                $op = EZQLOperator::IN;
                 $isNegation = true;
                 break;
         }

@@ -4,10 +4,15 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzPlatformQueryLanguage\API\Repository\QueryLanguageService:
-        alias: EzSystems\EzPlatformQueryLanguage\Core\Repository\QueryLanguageService
+    EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL:
+        alias: EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL
+        public: true
 
-    EzSystems\EzPlatformQueryLanguage\Core\Repository\QueryLanguageService: ~
+    EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL: ~
+
+    EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy: ~
+
+    ### eZ Platform Integration
 
     EzSystems\EzPlatformQueryLanguage\Core\QueryType\EZQLQueryType:
         tags:

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\Exception;
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Exception;
 
 use Exception;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformQueryLanguage\Core\Visitor;
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Visitor;
 
 use eZ\Publish\API\Repository\Values\Content\Query;
 

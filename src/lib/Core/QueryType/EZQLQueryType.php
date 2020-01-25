@@ -6,17 +6,17 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\QueryType;
 
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
-use EzSystems\EzPlatformQueryLanguage\API\Repository\QueryLanguageService;
+use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EZQLQueryType extends OptionsResolverBasedQueryType
 {
-    /** @var \EzSystems\EzPlatformQueryLanguage\API\Repository\QueryLanguageService */
-    private $queryLanguageService;
+    /** @var \EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL */
+    private $ezql;
 
-    public function __construct(QueryLanguageService $queryLanguageService)
+    public function __construct(EZQL $ezql)
     {
-        $this->queryLanguageService = $queryLanguageService;
+        $this->ezql = $ezql;
     }
 
     protected function configureOptions(OptionsResolver $optionsResolver): void
@@ -25,14 +25,17 @@ final class EZQLQueryType extends OptionsResolverBasedQueryType
         $optionsResolver->setDefaults([
             'bind' => [],
         ]);
+
+        $optionsResolver->setAllowedTypes('query', 'string');
+        $optionsResolver->setAllowedTypes('bind', 'array');
     }
 
     protected function doGetQuery(array $parameters): Query
     {
-        return $this->queryLanguageService->compile(
-            $parameters['query'],
-            $parameters['bind']
-        );
+        $query = $parameters['query'];
+        $params = $parameters['bind'];
+
+        return $this->ezql->prepare($query)->getQuery($params);
     }
 
     public static function getName(): string

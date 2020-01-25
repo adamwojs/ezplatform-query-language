@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace EzSystems\EzPlatformQueryLanguage\Core\Repository;
+
+use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL\EZQLStatement as EZQLStatementInterface;
+use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL as SearchServiceInterface;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLStatement;
+
+final class EZQL implements SearchServiceInterface
+{
+    /** @var \EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy */
+    private $ezqlProxy;
+
+    public function __construct(EZQLProxy $ezqlProxy)
+    {
+        $this->ezqlProxy = $ezqlProxy;
+    }
+
+    public function prepare(string $query): EZQLStatementInterface
+    {
+        return new EZQLStatement($this->ezqlProxy, $query);
+    }
+
+    public function find(string $query, array $params = [], array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult
+    {
+        return $this->ezqlProxy->execute($query, $params, $languageFilter, $filterOnUserPermissions);
+    }
+}
