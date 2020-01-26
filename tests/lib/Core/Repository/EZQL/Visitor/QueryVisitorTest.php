@@ -10,6 +10,7 @@ use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\DateMetadata;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FullText;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LocationId;
@@ -170,6 +171,32 @@ final class QueryVisitorTest extends TestCase
                 QueryVisitorResult::TARGET_LOCATION,
                 new LocationQuery([
                     'filter' => new Query\Criterion\MatchNone(),
+                ])
+            ),
+        ];
+
+        yield 'field is eq' => [
+            'SELECT LOCATION FILTER BY FIELD title = :title',
+            [
+                'title' => 'Lorem ipsum dolor',
+            ],
+            new QueryVisitorResult(
+                QueryVisitorResult::TARGET_LOCATION,
+                new LocationQuery([
+                    'filter' => new Field('title', Operator::EQ, 'Lorem ipsum dolor'),
+                ])
+            ),
+        ];
+
+        yield 'field is not eq' => [
+            'SELECT LOCATION FILTER BY FIELD title != :title',
+            [
+                'title' => 'Lorem ipsum dolor',
+            ],
+            new QueryVisitorResult(
+                QueryVisitorResult::TARGET_LOCATION,
+                new LocationQuery([
+                    'filter' => new LogicalNot(new Field('title', Operator::EQ, 'Lorem ipsum dolor')),
                 ])
             ),
         ];
