@@ -10,7 +10,7 @@ use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL\EZQLStatement as EQZLS
 
 final class EZQLStatement implements EQZLStatementInterface
 {
-    /** @var \EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy */
+    /** @var \EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxyInterface */
     private $proxy;
 
     /** @var string */
@@ -25,7 +25,7 @@ final class EZQLStatement implements EQZLStatementInterface
     /** @var bool */
     private $filterOnPermissions = true;
 
-    public function __construct(EZQLProxy $proxy, string $query)
+    public function __construct(EZQLProxyInterface $proxy, string $query)
     {
         $this->proxy = $proxy;
         $this->ezqlQuery = $query;

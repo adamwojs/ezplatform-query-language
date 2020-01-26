@@ -18,7 +18,7 @@ use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Visitor\QueryVisitorR
 /**
  * @internal
  */
-final class EZQLProxy
+final class EZQLProxy implements EZQLProxyInterface
 {
     /** @var \eZ\Publish\API\Repository\SearchService */
     private $searchService;

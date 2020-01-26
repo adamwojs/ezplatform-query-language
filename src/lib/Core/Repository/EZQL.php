@@ -6,16 +6,16 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository;
 
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL\EZQLStatement as EZQLStatementInterface;
-use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL as SearchServiceInterface;
-use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy;
+use EzSystems\EzPlatformQueryLanguage\API\Repository\EZQL as EZQLInterface;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxyInterface;
 use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLStatement;
 
-final class EZQL implements SearchServiceInterface
+final class EZQL implements EZQLInterface
 {
-    /** @var \EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy */
+    /** @var \EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxyInterface */
     private $ezqlProxy;
 
-    public function __construct(EZQLProxy $ezqlProxy)
+    public function __construct(EZQLProxyInterface $ezqlProxy)
     {
         $this->ezqlProxy = $ezqlProxy;
     }
