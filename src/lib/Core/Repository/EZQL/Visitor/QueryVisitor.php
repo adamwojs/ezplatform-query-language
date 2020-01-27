@@ -289,8 +289,8 @@ final class QueryVisitor extends EZQLBaseVisitor
         $value = $context->value()->accept($this);
 
         return $this->resolveNegation(
-            function () use ($class, $value): Criterion {
-                return $this->createCriterion($class, [$value]);
+            function (string $op) use ($class, $value): Criterion {
+                return $this->createCriterion($class, [$op, $value]);
             },
             $context->op->accept($this)
         );
@@ -380,7 +380,7 @@ final class QueryVisitor extends EZQLBaseVisitor
 
     private function createCriterion(string $class, array $args): Criterion
     {
-        if (strpos($class, '\\') !== 0) {
+        if (strpos($class, '\\') === false) {
             $class = 'eZ\\Publish\\API\\Repository\\Values\\Content\Query\\Criterion\\' . $class;
         }
 
