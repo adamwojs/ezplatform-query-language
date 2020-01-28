@@ -120,6 +120,17 @@ class EZQLBaseVisitor extends AbstractParseTreeVisitor implements EZQLVisitor
      * The default implementation returns the result of calling
      * {@see self::visitChildren()} on `context`.
      */
+    public function visitFieldRelationExpr(Context\FieldRelationExprContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
     public function visitMatchAllExpr(Context\MatchAllExprContext $context)
     {
         return $this->visitChildren($context);

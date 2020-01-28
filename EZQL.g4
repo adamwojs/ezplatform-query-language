@@ -36,6 +36,7 @@ expr:
     | K_IS K_NOT K_MAIN K_LOCATION                                              #isNotMainLocationExpr
     | K_IS flag=(K_VISIBLE|K_HIDDEN)                                            #visibilityExpr
     | K_FIELD field=ID op=operator val=value                                    #fieldExpr
+    | K_FIELD K_RELATION field=ID op=operator val=value                         #fieldRelationExpr
     | K_LOCATION K_PRIORITY op=operator val=value                               #locationPriorityExpr
     | K_CREATED op=operator val=value                                           #createdExpr
     | K_MODIFIED op=operator val=value                                          #modifiedExpr
@@ -108,10 +109,12 @@ K_OR: [Oo][Rr];
 K_ORDER: [Oo][Rr][Dd][Ee][Rr];
 K_OWNER: [Oo][Ww][Nn][Ee][Rr];
 K_PRIORITY: [Pp][Rr][Ii][Oo][Rr][Ii][Tt][Yy];
+K_RELATION: [Rr][Ee][Ll][Aa][Tt][Ii][Oo][Nn];
 K_QUERY: [Qq][Uu][Ee][Rr][Yy];
 K_SELECT: [Ss][Ee][Ll][Ee][Cc][Tt];
 K_TRUE: [Tt][Rr][Uu][Ee];
 K_VISIBLE: [Vv][Ii][Ss][Ii][Bb][Ll][Ee];
+
 
 EQ: '=';
 NEQ: '!=';

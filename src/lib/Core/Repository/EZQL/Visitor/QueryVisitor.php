@@ -9,6 +9,7 @@ use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\DateMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FieldRelation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\Priority;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
@@ -231,6 +232,19 @@ final class QueryVisitor extends EZQLBaseVisitor
         return $this->resolveNegation(
             static function (string $op) use ($field, $value): Criterion {
                 return new Field($field, $op, $value);
+            },
+            $context->op->accept($this)
+        );
+    }
+
+    public function visitFieldRelationExpr(Context\FieldRelationExprContext $context): Criterion
+    {
+        $field = $context->field->getText();
+        $value = $context->val->accept($this);
+
+        return $this->resolveNegation(
+            static function (string $op) use ($field, $value): Criterion {
+                return new FieldRelation($field, $op, $value);
             },
             $context->op->accept($this)
         );

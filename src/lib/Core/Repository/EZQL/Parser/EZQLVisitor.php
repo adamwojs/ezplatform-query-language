@@ -96,6 +96,16 @@ interface EZQLVisitor extends ParseTreeVisitor
     public function visitUserMetadataExpr(Context\UserMetadataExprContext $context);
 
     /**
+     * Visit a parse tree produced by the `fieldRelationExpr` labeled alternative
+     * in {@see EZQLParser::expr()}.
+     *
+     * @param Context\FieldRelationExprContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitFieldRelationExpr(Context\FieldRelationExprContext $context);
+
+    /**
      * Visit a parse tree produced by the `matchAllExpr` labeled alternative
      * in {@see EZQLParser::expr()}.
      *

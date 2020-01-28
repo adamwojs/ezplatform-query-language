@@ -57,22 +57,23 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
         public const K_ORDER = 33;
         public const K_OWNER = 34;
         public const K_PRIORITY = 35;
-        public const K_QUERY = 36;
-        public const K_SELECT = 37;
-        public const K_TRUE = 38;
-        public const K_VISIBLE = 39;
-        public const EQ = 40;
-        public const NEQ = 41;
-        public const GT = 42;
-        public const GTE = 43;
-        public const LT = 44;
-        public const LTE = 45;
-        public const INT = 46;
-        public const DOUBLE = 47;
-        public const STRING = 48;
-        public const PARAMETER_NAME = 49;
-        public const ID = 50;
-        public const WS = 51;
+        public const K_RELATION = 36;
+        public const K_QUERY = 37;
+        public const K_SELECT = 38;
+        public const K_TRUE = 39;
+        public const K_VISIBLE = 40;
+        public const EQ = 41;
+        public const NEQ = 42;
+        public const GT = 43;
+        public const GTE = 44;
+        public const LT = 45;
+        public const LTE = 46;
+        public const INT = 47;
+        public const DOUBLE = 48;
+        public const STRING = 49;
+        public const PARAMETER_NAME = 50;
+        public const ID = 51;
+        public const WS = 52;
 
         public const RULE_stmt = 0;
         public const RULE_selectLocation = 1;
@@ -108,8 +109,8 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             null, "','", "'('", "')'", "'..'", null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, "'='", "'!='", "'>'", "'>='",
-            "'<'", "'<='",
+            null, null, null, null, null, null, null, null, "'='", "'!='", "'>'",
+            "'>='", "'<'", "'<='",
         ];
 
         /**
@@ -121,9 +122,9 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             'K_FIELD', 'K_FILTER', 'K_GROUP', 'K_HIDDEN', 'K_IN', 'K_INFO', 'K_IS',
             'K_LIKE', 'K_LIMIT', 'K_LOCATION', 'K_MAIN', 'K_MATCH', 'K_MODIFIER',
             'K_MODIFIED', 'K_NONE', 'K_NOT', 'K_OFFSET', 'K_OR', 'K_ORDER', 'K_OWNER',
-            'K_PRIORITY', 'K_QUERY', 'K_SELECT', 'K_TRUE', 'K_VISIBLE', 'EQ',
-            'NEQ', 'GT', 'GTE', 'LT', 'LTE', 'INT', 'DOUBLE', 'STRING', 'PARAMETER_NAME',
-            'ID', 'WS',
+            'K_PRIORITY', 'K_RELATION', 'K_QUERY', 'K_SELECT', 'K_TRUE', 'K_VISIBLE',
+            'EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE', 'INT', 'DOUBLE', 'STRING',
+            'PARAMETER_NAME', 'ID', 'WS',
         ];
 
         /**
@@ -131,7 +132,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
          */
         private const SERIALIZED_ATN =
             "\u{3}\u{608B}\u{A72A}\u{8133}\u{B9ED}\u{417C}\u{3BE7}\u{7786}\u{5964}" .
-            "\u{3}\u{35}\u{BB}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
+            "\u{3}\u{36}\u{C1}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
             "\u{9}\u{4}\u{4}\u{5}\u{9}\u{5}\u{4}\u{6}\u{9}\u{6}\u{4}\u{7}\u{9}" .
             "\u{7}\u{4}\u{8}\u{9}\u{8}\u{4}\u{9}\u{9}\u{9}\u{4}\u{A}\u{9}\u{A}" .
             "\u{4}\u{B}\u{9}\u{B}\u{4}\u{C}\u{9}\u{C}\u{4}\u{D}\u{9}\u{D}\u{4}" .
@@ -152,117 +153,121 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             "\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}" .
             "\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}" .
             "\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}" .
-            "\u{5}\u{A}\u{86}\u{A}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}" .
-            "\u{3}\u{A}\u{3}\u{A}\u{7}\u{A}\u{8E}\u{A}\u{A}\u{C}\u{A}\u{E}\u{A}" .
-            "\u{91}\u{B}\u{A}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{5}\u{B}" .
-            "\u{97}\u{A}\u{B}\u{3}\u{C}\u{3}\u{C}\u{3}\u{C}\u{5}\u{C}\u{9C}\u{A}" .
-            "\u{C}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{E}\u{3}\u{E}" .
-            "\u{3}\u{E}\u{3}\u{E}\u{7}\u{E}\u{A6}\u{A}\u{E}\u{C}\u{E}\u{E}\u{E}" .
-            "\u{A9}\u{B}\u{E}\u{3}\u{E}\u{3}\u{E}\u{3}\u{F}\u{3}\u{F}\u{5}\u{F}" .
-            "\u{AF}\u{A}\u{F}\u{3}\u{10}\u{3}\u{10}\u{3}\u{11}\u{3}\u{11}\u{3}" .
-            "\u{11}\u{3}\u{11}\u{5}\u{11}\u{B7}\u{A}\u{11}\u{3}\u{12}\u{3}\u{12}" .
-            "\u{3}\u{12}\u{2}\u{3}\u{12}\u{13}\u{2}\u{4}\u{6}\u{8}\u{A}\u{C}\u{E}" .
-            "\u{10}\u{12}\u{14}\u{16}\u{18}\u{1A}\u{1C}\u{1E}\u{20}\u{22}\u{2}" .
-            "\u{7}\u{4}\u{2}\u{9}\u{9}\u{F}\u{F}\u{4}\u{2}\u{14}\u{14}\u{29}\u{29}" .
-            "\u{8}\u{2}\u{A}\u{A}\u{C}\u{C}\u{15}\u{15}\u{18}\u{18}\u{2A}\u{2A}" .
-            "\u{2C}\u{2F}\u{4}\u{2}\u{10}\u{10}\u{28}\u{28}\u{5}\u{2}\u{13}\u{13}" .
-            "\u{1D}\u{1D}\u{24}\u{24}\u{2}\u{C7}\u{2}\u{27}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{4}\u{29}\u{3}\u{2}\u{2}\u{2}\u{6}\u{2D}\u{3}\u{2}\u{2}\u{2}\u{8}" .
-            "\u{31}\u{3}\u{2}\u{2}\u{2}\u{A}\u{39}\u{3}\u{2}\u{2}\u{2}\u{C}\u{4C}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{E}\u{54}\u{3}\u{2}\u{2}\u{2}\u{10}\u{57}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{12}\u{85}\u{3}\u{2}\u{2}\u{2}\u{14}\u{96}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{16}\u{9B}\u{3}\u{2}\u{2}\u{2}\u{18}\u{9D}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{1A}\u{A1}\u{3}\u{2}\u{2}\u{2}\u{1C}\u{AE}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{1E}\u{B0}\u{3}\u{2}\u{2}\u{2}\u{20}\u{B6}\u{3}\u{2}\u{2}\u{2}\u{22}" .
-            "\u{B8}\u{3}\u{2}\u{2}\u{2}\u{24}\u{28}\u{5}\u{4}\u{3}\u{2}\u{25}\u{28}" .
-            "\u{5}\u{6}\u{4}\u{2}\u{26}\u{28}\u{5}\u{8}\u{5}\u{2}\u{27}\u{24}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{27}\u{25}\u{3}\u{2}\u{2}\u{2}\u{27}\u{26}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{28}\u{3}\u{3}\u{2}\u{2}\u{2}\u{29}\u{2A}\u{7}\u{27}\u{2}" .
-            "\u{2}\u{2A}\u{2B}\u{7}\u{1A}\u{2}\u{2}\u{2B}\u{2C}\u{5}\u{A}\u{6}" .
-            "\u{2}\u{2C}\u{5}\u{3}\u{2}\u{2}\u{2}\u{2D}\u{2E}\u{7}\u{27}\u{2}\u{2}" .
-            "\u{2E}\u{2F}\u{7}\u{D}\u{2}\u{2}\u{2F}\u{30}\u{5}\u{A}\u{6}\u{2}\u{30}" .
-            "\u{7}\u{3}\u{2}\u{2}\u{2}\u{31}\u{32}\u{7}\u{27}\u{2}\u{2}\u{32}\u{33}" .
-            "\u{7}\u{D}\u{2}\u{2}\u{33}\u{34}\u{7}\u{16}\u{2}\u{2}\u{34}\u{35}" .
-            "\u{5}\u{A}\u{6}\u{2}\u{35}\u{9}\u{3}\u{2}\u{2}\u{2}\u{36}\u{37}\u{7}" .
-            "\u{12}\u{2}\u{2}\u{37}\u{38}\u{7}\u{B}\u{2}\u{2}\u{38}\u{3A}\u{5}" .
-            "\u{12}\u{A}\u{2}\u{39}\u{36}\u{3}\u{2}\u{2}\u{2}\u{39}\u{3A}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{3A}\u{3D}\u{3}\u{2}\u{2}\u{2}\u{3B}\u{3C}\u{7}\u{26}" .
-            "\u{2}\u{2}\u{3C}\u{3E}\u{5}\u{12}\u{A}\u{2}\u{3D}\u{3B}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{3D}\u{3E}\u{3}\u{2}\u{2}\u{2}\u{3E}\u{42}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{3F}\u{40}\u{7}\u{23}\u{2}\u{2}\u{40}\u{41}\u{7}\u{B}\u{2}" .
-            "\u{2}\u{41}\u{43}\u{5}\u{C}\u{7}\u{2}\u{42}\u{3F}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{42}\u{43}\u{3}\u{2}\u{2}\u{2}\u{43}\u{46}\u{3}\u{2}\u{2}\u{2}\u{44}" .
-            "\u{45}\u{7}\u{19}\u{2}\u{2}\u{45}\u{47}\u{5}\u{1C}\u{F}\u{2}\u{46}" .
-            "\u{44}\u{3}\u{2}\u{2}\u{2}\u{46}\u{47}\u{3}\u{2}\u{2}\u{2}\u{47}\u{4A}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{48}\u{49}\u{7}\u{21}\u{2}\u{2}\u{49}\u{4B}" .
-            "\u{5}\u{1C}\u{F}\u{2}\u{4A}\u{48}\u{3}\u{2}\u{2}\u{2}\u{4A}\u{4B}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{4B}\u{B}\u{3}\u{2}\u{2}\u{2}\u{4C}\u{51}\u{5}" .
-            "\u{E}\u{8}\u{2}\u{4D}\u{4E}\u{7}\u{3}\u{2}\u{2}\u{4E}\u{50}\u{5}\u{E}" .
-            "\u{8}\u{2}\u{4F}\u{4D}\u{3}\u{2}\u{2}\u{2}\u{50}\u{53}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{51}\u{4F}\u{3}\u{2}\u{2}\u{2}\u{51}\u{52}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{52}\u{D}\u{3}\u{2}\u{2}\u{2}\u{53}\u{51}\u{3}\u{2}\u{2}\u{2}\u{54}" .
-            "\u{55}\u{7}\u{34}\u{2}\u{2}\u{55}\u{56}\u{5}\u{10}\u{9}\u{2}\u{56}" .
-            "\u{F}\u{3}\u{2}\u{2}\u{2}\u{57}\u{58}\u{9}\u{2}\u{2}\u{2}\u{58}\u{11}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{59}\u{5A}\u{8}\u{A}\u{1}\u{2}\u{5A}\u{5B}\u{7}" .
-            "\u{1C}\u{2}\u{2}\u{5B}\u{86}\u{7}\u{7}\u{2}\u{2}\u{5C}\u{5D}\u{7}" .
-            "\u{1C}\u{2}\u{2}\u{5D}\u{86}\u{7}\u{1F}\u{2}\u{2}\u{5E}\u{5F}\u{7}" .
-            "\u{17}\u{2}\u{2}\u{5F}\u{60}\u{7}\u{1B}\u{2}\u{2}\u{60}\u{86}\u{7}" .
-            "\u{1A}\u{2}\u{2}\u{61}\u{62}\u{7}\u{17}\u{2}\u{2}\u{62}\u{63}\u{7}" .
-            "\u{20}\u{2}\u{2}\u{63}\u{64}\u{7}\u{1B}\u{2}\u{2}\u{64}\u{86}\u{7}" .
-            "\u{1A}\u{2}\u{2}\u{65}\u{66}\u{7}\u{17}\u{2}\u{2}\u{66}\u{86}\u{9}" .
-            "\u{3}\u{2}\u{2}\u{67}\u{68}\u{7}\u{11}\u{2}\u{2}\u{68}\u{69}\u{7}" .
-            "\u{34}\u{2}\u{2}\u{69}\u{6A}\u{5}\u{14}\u{B}\u{2}\u{6A}\u{6B}\u{5}" .
-            "\u{16}\u{C}\u{2}\u{6B}\u{86}\u{3}\u{2}\u{2}\u{2}\u{6C}\u{6D}\u{7}" .
-            "\u{1A}\u{2}\u{2}\u{6D}\u{6E}\u{7}\u{25}\u{2}\u{2}\u{6E}\u{6F}\u{5}" .
-            "\u{14}\u{B}\u{2}\u{6F}\u{70}\u{5}\u{16}\u{C}\u{2}\u{70}\u{86}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{71}\u{72}\u{7}\u{E}\u{2}\u{2}\u{72}\u{73}\u{5}\u{14}" .
-            "\u{B}\u{2}\u{73}\u{74}\u{5}\u{16}\u{C}\u{2}\u{74}\u{86}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{75}\u{76}\u{7}\u{1E}\u{2}\u{2}\u{76}\u{77}\u{5}\u{14}" .
-            "\u{B}\u{2}\u{77}\u{78}\u{5}\u{16}\u{C}\u{2}\u{78}\u{86}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{79}\u{7A}\u{5}\u{22}\u{12}\u{2}\u{7A}\u{7B}\u{5}\u{14}" .
-            "\u{B}\u{2}\u{7B}\u{7C}\u{5}\u{16}\u{C}\u{2}\u{7C}\u{86}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{7D}\u{7E}\u{7}\u{34}\u{2}\u{2}\u{7E}\u{7F}\u{5}\u{14}" .
-            "\u{B}\u{2}\u{7F}\u{80}\u{5}\u{16}\u{C}\u{2}\u{80}\u{86}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{81}\u{82}\u{7}\u{4}\u{2}\u{2}\u{82}\u{83}\u{5}\u{12}" .
-            "\u{A}\u{2}\u{83}\u{84}\u{7}\u{5}\u{2}\u{2}\u{84}\u{86}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{85}\u{59}\u{3}\u{2}\u{2}\u{2}\u{85}\u{5C}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{85}\u{5E}\u{3}\u{2}\u{2}\u{2}\u{85}\u{61}\u{3}\u{2}\u{2}\u{2}\u{85}" .
-            "\u{65}\u{3}\u{2}\u{2}\u{2}\u{85}\u{67}\u{3}\u{2}\u{2}\u{2}\u{85}\u{6C}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{85}\u{71}\u{3}\u{2}\u{2}\u{2}\u{85}\u{75}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{85}\u{79}\u{3}\u{2}\u{2}\u{2}\u{85}\u{7D}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{85}\u{81}\u{3}\u{2}\u{2}\u{2}\u{86}\u{8F}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{87}\u{88}\u{C}\u{5}\u{2}\u{2}\u{88}\u{89}\u{7}\u{8}\u{2}\u{2}" .
-            "\u{89}\u{8E}\u{5}\u{12}\u{A}\u{6}\u{8A}\u{8B}\u{C}\u{4}\u{2}\u{2}" .
-            "\u{8B}\u{8C}\u{7}\u{22}\u{2}\u{2}\u{8C}\u{8E}\u{5}\u{12}\u{A}\u{5}" .
-            "\u{8D}\u{87}\u{3}\u{2}\u{2}\u{2}\u{8D}\u{8A}\u{3}\u{2}\u{2}\u{2}\u{8E}" .
-            "\u{91}\u{3}\u{2}\u{2}\u{2}\u{8F}\u{8D}\u{3}\u{2}\u{2}\u{2}\u{8F}\u{90}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{90}\u{13}\u{3}\u{2}\u{2}\u{2}\u{91}\u{8F}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{92}\u{97}\u{9}\u{4}\u{2}\u{2}\u{93}\u{94}\u{7}\u{20}" .
-            "\u{2}\u{2}\u{94}\u{97}\u{7}\u{15}\u{2}\u{2}\u{95}\u{97}\u{7}\u{2B}" .
-            "\u{2}\u{2}\u{96}\u{92}\u{3}\u{2}\u{2}\u{2}\u{96}\u{93}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{96}\u{95}\u{3}\u{2}\u{2}\u{2}\u{97}\u{15}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{98}\u{9C}\u{5}\u{1C}\u{F}\u{2}\u{99}\u{9C}\u{5}\u{1A}\u{E}\u{2}" .
-            "\u{9A}\u{9C}\u{5}\u{18}\u{D}\u{2}\u{9B}\u{98}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{9B}\u{99}\u{3}\u{2}\u{2}\u{2}\u{9B}\u{9A}\u{3}\u{2}\u{2}\u{2}\u{9C}" .
-            "\u{17}\u{3}\u{2}\u{2}\u{2}\u{9D}\u{9E}\u{5}\u{1C}\u{F}\u{2}\u{9E}" .
-            "\u{9F}\u{7}\u{6}\u{2}\u{2}\u{9F}\u{A0}\u{5}\u{1C}\u{F}\u{2}\u{A0}" .
-            "\u{19}\u{3}\u{2}\u{2}\u{2}\u{A1}\u{A2}\u{7}\u{4}\u{2}\u{2}\u{A2}\u{A7}" .
-            "\u{5}\u{1C}\u{F}\u{2}\u{A3}\u{A4}\u{7}\u{3}\u{2}\u{2}\u{A4}\u{A6}" .
-            "\u{5}\u{1C}\u{F}\u{2}\u{A5}\u{A3}\u{3}\u{2}\u{2}\u{2}\u{A6}\u{A9}" .
-            "\u{3}\u{2}\u{2}\u{2}\u{A7}\u{A5}\u{3}\u{2}\u{2}\u{2}\u{A7}\u{A8}\u{3}" .
-            "\u{2}\u{2}\u{2}\u{A8}\u{AA}\u{3}\u{2}\u{2}\u{2}\u{A9}\u{A7}\u{3}\u{2}" .
-            "\u{2}\u{2}\u{AA}\u{AB}\u{7}\u{5}\u{2}\u{2}\u{AB}\u{1B}\u{3}\u{2}\u{2}" .
-            "\u{2}\u{AC}\u{AF}\u{5}\u{1E}\u{10}\u{2}\u{AD}\u{AF}\u{5}\u{20}\u{11}" .
-            "\u{2}\u{AE}\u{AC}\u{3}\u{2}\u{2}\u{2}\u{AE}\u{AD}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{AF}\u{1D}\u{3}\u{2}\u{2}\u{2}\u{B0}\u{B1}\u{7}\u{33}\u{2}\u{2}" .
-            "\u{B1}\u{1F}\u{3}\u{2}\u{2}\u{2}\u{B2}\u{B7}\u{7}\u{30}\u{2}\u{2}" .
-            "\u{B3}\u{B7}\u{9}\u{5}\u{2}\u{2}\u{B4}\u{B7}\u{7}\u{32}\u{2}\u{2}" .
-            "\u{B5}\u{B7}\u{7}\u{31}\u{2}\u{2}\u{B6}\u{B2}\u{3}\u{2}\u{2}\u{2}" .
-            "\u{B6}\u{B3}\u{3}\u{2}\u{2}\u{2}\u{B6}\u{B4}\u{3}\u{2}\u{2}\u{2}\u{B6}" .
-            "\u{B5}\u{3}\u{2}\u{2}\u{2}\u{B7}\u{21}\u{3}\u{2}\u{2}\u{2}\u{B8}\u{B9}" .
-            "\u{9}\u{6}\u{2}\u{2}\u{B9}\u{23}\u{3}\u{2}\u{2}\u{2}\u{11}\u{27}\u{39}" .
-            "\u{3D}\u{42}\u{46}\u{4A}\u{51}\u{85}\u{8D}\u{8F}\u{96}\u{9B}\u{A7}" .
-            "\u{AE}\u{B6}";
+            "\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{5}" .
+            "\u{A}\u{8C}\u{A}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}" .
+            "\u{A}\u{3}\u{A}\u{7}\u{A}\u{94}\u{A}\u{A}\u{C}\u{A}\u{E}\u{A}\u{97}" .
+            "\u{B}\u{A}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{5}\u{B}\u{9D}" .
+            "\u{A}\u{B}\u{3}\u{C}\u{3}\u{C}\u{3}\u{C}\u{5}\u{C}\u{A2}\u{A}\u{C}" .
+            "\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{E}\u{3}\u{E}\u{3}" .
+            "\u{E}\u{3}\u{E}\u{7}\u{E}\u{AC}\u{A}\u{E}\u{C}\u{E}\u{E}\u{E}\u{AF}" .
+            "\u{B}\u{E}\u{3}\u{E}\u{3}\u{E}\u{3}\u{F}\u{3}\u{F}\u{5}\u{F}\u{B5}" .
+            "\u{A}\u{F}\u{3}\u{10}\u{3}\u{10}\u{3}\u{11}\u{3}\u{11}\u{3}\u{11}" .
+            "\u{3}\u{11}\u{5}\u{11}\u{BD}\u{A}\u{11}\u{3}\u{12}\u{3}\u{12}\u{3}" .
+            "\u{12}\u{2}\u{3}\u{12}\u{13}\u{2}\u{4}\u{6}\u{8}\u{A}\u{C}\u{E}\u{10}" .
+            "\u{12}\u{14}\u{16}\u{18}\u{1A}\u{1C}\u{1E}\u{20}\u{22}\u{2}\u{7}\u{4}" .
+            "\u{2}\u{9}\u{9}\u{F}\u{F}\u{4}\u{2}\u{14}\u{14}\u{2A}\u{2A}\u{8}\u{2}" .
+            "\u{A}\u{A}\u{C}\u{C}\u{15}\u{15}\u{18}\u{18}\u{2B}\u{2B}\u{2D}\u{30}" .
+            "\u{4}\u{2}\u{10}\u{10}\u{29}\u{29}\u{5}\u{2}\u{13}\u{13}\u{1D}\u{1D}" .
+            "\u{24}\u{24}\u{2}\u{CE}\u{2}\u{27}\u{3}\u{2}\u{2}\u{2}\u{4}\u{29}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{6}\u{2D}\u{3}\u{2}\u{2}\u{2}\u{8}\u{31}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{A}\u{39}\u{3}\u{2}\u{2}\u{2}\u{C}\u{4C}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{E}\u{54}\u{3}\u{2}\u{2}\u{2}\u{10}\u{57}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{12}\u{8B}\u{3}\u{2}\u{2}\u{2}\u{14}\u{9C}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{16}\u{A1}\u{3}\u{2}\u{2}\u{2}\u{18}\u{A3}\u{3}\u{2}\u{2}\u{2}\u{1A}" .
+            "\u{A7}\u{3}\u{2}\u{2}\u{2}\u{1C}\u{B4}\u{3}\u{2}\u{2}\u{2}\u{1E}\u{B6}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{20}\u{BC}\u{3}\u{2}\u{2}\u{2}\u{22}\u{BE}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{24}\u{28}\u{5}\u{4}\u{3}\u{2}\u{25}\u{28}\u{5}\u{6}" .
+            "\u{4}\u{2}\u{26}\u{28}\u{5}\u{8}\u{5}\u{2}\u{27}\u{24}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{27}\u{25}\u{3}\u{2}\u{2}\u{2}\u{27}\u{26}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{28}\u{3}\u{3}\u{2}\u{2}\u{2}\u{29}\u{2A}\u{7}\u{28}\u{2}\u{2}\u{2A}" .
+            "\u{2B}\u{7}\u{1A}\u{2}\u{2}\u{2B}\u{2C}\u{5}\u{A}\u{6}\u{2}\u{2C}" .
+            "\u{5}\u{3}\u{2}\u{2}\u{2}\u{2D}\u{2E}\u{7}\u{28}\u{2}\u{2}\u{2E}\u{2F}" .
+            "\u{7}\u{D}\u{2}\u{2}\u{2F}\u{30}\u{5}\u{A}\u{6}\u{2}\u{30}\u{7}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{31}\u{32}\u{7}\u{28}\u{2}\u{2}\u{32}\u{33}\u{7}" .
+            "\u{D}\u{2}\u{2}\u{33}\u{34}\u{7}\u{16}\u{2}\u{2}\u{34}\u{35}\u{5}" .
+            "\u{A}\u{6}\u{2}\u{35}\u{9}\u{3}\u{2}\u{2}\u{2}\u{36}\u{37}\u{7}\u{12}" .
+            "\u{2}\u{2}\u{37}\u{38}\u{7}\u{B}\u{2}\u{2}\u{38}\u{3A}\u{5}\u{12}" .
+            "\u{A}\u{2}\u{39}\u{36}\u{3}\u{2}\u{2}\u{2}\u{39}\u{3A}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{3A}\u{3D}\u{3}\u{2}\u{2}\u{2}\u{3B}\u{3C}\u{7}\u{27}\u{2}" .
+            "\u{2}\u{3C}\u{3E}\u{5}\u{12}\u{A}\u{2}\u{3D}\u{3B}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{3D}\u{3E}\u{3}\u{2}\u{2}\u{2}\u{3E}\u{42}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{3F}\u{40}\u{7}\u{23}\u{2}\u{2}\u{40}\u{41}\u{7}\u{B}\u{2}\u{2}" .
+            "\u{41}\u{43}\u{5}\u{C}\u{7}\u{2}\u{42}\u{3F}\u{3}\u{2}\u{2}\u{2}\u{42}" .
+            "\u{43}\u{3}\u{2}\u{2}\u{2}\u{43}\u{46}\u{3}\u{2}\u{2}\u{2}\u{44}\u{45}" .
+            "\u{7}\u{19}\u{2}\u{2}\u{45}\u{47}\u{5}\u{1C}\u{F}\u{2}\u{46}\u{44}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{46}\u{47}\u{3}\u{2}\u{2}\u{2}\u{47}\u{4A}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{48}\u{49}\u{7}\u{21}\u{2}\u{2}\u{49}\u{4B}\u{5}" .
+            "\u{1C}\u{F}\u{2}\u{4A}\u{48}\u{3}\u{2}\u{2}\u{2}\u{4A}\u{4B}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{4B}\u{B}\u{3}\u{2}\u{2}\u{2}\u{4C}\u{51}\u{5}\u{E}" .
+            "\u{8}\u{2}\u{4D}\u{4E}\u{7}\u{3}\u{2}\u{2}\u{4E}\u{50}\u{5}\u{E}\u{8}" .
+            "\u{2}\u{4F}\u{4D}\u{3}\u{2}\u{2}\u{2}\u{50}\u{53}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{51}\u{4F}\u{3}\u{2}\u{2}\u{2}\u{51}\u{52}\u{3}\u{2}\u{2}\u{2}\u{52}" .
+            "\u{D}\u{3}\u{2}\u{2}\u{2}\u{53}\u{51}\u{3}\u{2}\u{2}\u{2}\u{54}\u{55}" .
+            "\u{7}\u{35}\u{2}\u{2}\u{55}\u{56}\u{5}\u{10}\u{9}\u{2}\u{56}\u{F}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{57}\u{58}\u{9}\u{2}\u{2}\u{2}\u{58}\u{11}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{59}\u{5A}\u{8}\u{A}\u{1}\u{2}\u{5A}\u{5B}\u{7}\u{1C}" .
+            "\u{2}\u{2}\u{5B}\u{8C}\u{7}\u{7}\u{2}\u{2}\u{5C}\u{5D}\u{7}\u{1C}" .
+            "\u{2}\u{2}\u{5D}\u{8C}\u{7}\u{1F}\u{2}\u{2}\u{5E}\u{5F}\u{7}\u{17}" .
+            "\u{2}\u{2}\u{5F}\u{60}\u{7}\u{1B}\u{2}\u{2}\u{60}\u{8C}\u{7}\u{1A}" .
+            "\u{2}\u{2}\u{61}\u{62}\u{7}\u{17}\u{2}\u{2}\u{62}\u{63}\u{7}\u{20}" .
+            "\u{2}\u{2}\u{63}\u{64}\u{7}\u{1B}\u{2}\u{2}\u{64}\u{8C}\u{7}\u{1A}" .
+            "\u{2}\u{2}\u{65}\u{66}\u{7}\u{17}\u{2}\u{2}\u{66}\u{8C}\u{9}\u{3}" .
+            "\u{2}\u{2}\u{67}\u{68}\u{7}\u{11}\u{2}\u{2}\u{68}\u{69}\u{7}\u{35}" .
+            "\u{2}\u{2}\u{69}\u{6A}\u{5}\u{14}\u{B}\u{2}\u{6A}\u{6B}\u{5}\u{16}" .
+            "\u{C}\u{2}\u{6B}\u{8C}\u{3}\u{2}\u{2}\u{2}\u{6C}\u{6D}\u{7}\u{11}" .
+            "\u{2}\u{2}\u{6D}\u{6E}\u{7}\u{26}\u{2}\u{2}\u{6E}\u{6F}\u{7}\u{35}" .
+            "\u{2}\u{2}\u{6F}\u{70}\u{5}\u{14}\u{B}\u{2}\u{70}\u{71}\u{5}\u{16}" .
+            "\u{C}\u{2}\u{71}\u{8C}\u{3}\u{2}\u{2}\u{2}\u{72}\u{73}\u{7}\u{1A}" .
+            "\u{2}\u{2}\u{73}\u{74}\u{7}\u{25}\u{2}\u{2}\u{74}\u{75}\u{5}\u{14}" .
+            "\u{B}\u{2}\u{75}\u{76}\u{5}\u{16}\u{C}\u{2}\u{76}\u{8C}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{77}\u{78}\u{7}\u{E}\u{2}\u{2}\u{78}\u{79}\u{5}\u{14}" .
+            "\u{B}\u{2}\u{79}\u{7A}\u{5}\u{16}\u{C}\u{2}\u{7A}\u{8C}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{7B}\u{7C}\u{7}\u{1E}\u{2}\u{2}\u{7C}\u{7D}\u{5}\u{14}" .
+            "\u{B}\u{2}\u{7D}\u{7E}\u{5}\u{16}\u{C}\u{2}\u{7E}\u{8C}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{7F}\u{80}\u{5}\u{22}\u{12}\u{2}\u{80}\u{81}\u{5}\u{14}" .
+            "\u{B}\u{2}\u{81}\u{82}\u{5}\u{16}\u{C}\u{2}\u{82}\u{8C}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{83}\u{84}\u{7}\u{35}\u{2}\u{2}\u{84}\u{85}\u{5}\u{14}" .
+            "\u{B}\u{2}\u{85}\u{86}\u{5}\u{16}\u{C}\u{2}\u{86}\u{8C}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{87}\u{88}\u{7}\u{4}\u{2}\u{2}\u{88}\u{89}\u{5}\u{12}" .
+            "\u{A}\u{2}\u{89}\u{8A}\u{7}\u{5}\u{2}\u{2}\u{8A}\u{8C}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{8B}\u{59}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{5C}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{8B}\u{5E}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{61}\u{3}\u{2}\u{2}\u{2}\u{8B}" .
+            "\u{65}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{67}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{6C}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{8B}\u{72}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{77}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{8B}\u{7B}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{7F}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{8B}\u{83}\u{3}\u{2}\u{2}\u{2}\u{8B}\u{87}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{8C}\u{95}\u{3}\u{2}\u{2}\u{2}\u{8D}\u{8E}\u{C}\u{5}\u{2}\u{2}" .
+            "\u{8E}\u{8F}\u{7}\u{8}\u{2}\u{2}\u{8F}\u{94}\u{5}\u{12}\u{A}\u{6}" .
+            "\u{90}\u{91}\u{C}\u{4}\u{2}\u{2}\u{91}\u{92}\u{7}\u{22}\u{2}\u{2}" .
+            "\u{92}\u{94}\u{5}\u{12}\u{A}\u{5}\u{93}\u{8D}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{93}\u{90}\u{3}\u{2}\u{2}\u{2}\u{94}\u{97}\u{3}\u{2}\u{2}\u{2}\u{95}" .
+            "\u{93}\u{3}\u{2}\u{2}\u{2}\u{95}\u{96}\u{3}\u{2}\u{2}\u{2}\u{96}\u{13}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{97}\u{95}\u{3}\u{2}\u{2}\u{2}\u{98}\u{9D}\u{9}" .
+            "\u{4}\u{2}\u{2}\u{99}\u{9A}\u{7}\u{20}\u{2}\u{2}\u{9A}\u{9D}\u{7}" .
+            "\u{15}\u{2}\u{2}\u{9B}\u{9D}\u{7}\u{2C}\u{2}\u{2}\u{9C}\u{98}\u{3}" .
+            "\u{2}\u{2}\u{2}\u{9C}\u{99}\u{3}\u{2}\u{2}\u{2}\u{9C}\u{9B}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{9D}\u{15}\u{3}\u{2}\u{2}\u{2}\u{9E}\u{A2}\u{5}\u{1C}" .
+            "\u{F}\u{2}\u{9F}\u{A2}\u{5}\u{1A}\u{E}\u{2}\u{A0}\u{A2}\u{5}\u{18}" .
+            "\u{D}\u{2}\u{A1}\u{9E}\u{3}\u{2}\u{2}\u{2}\u{A1}\u{9F}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{A1}\u{A0}\u{3}\u{2}\u{2}\u{2}\u{A2}\u{17}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{A3}\u{A4}\u{5}\u{1C}\u{F}\u{2}\u{A4}\u{A5}\u{7}\u{6}\u{2}\u{2}" .
+            "\u{A5}\u{A6}\u{5}\u{1C}\u{F}\u{2}\u{A6}\u{19}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{A7}\u{A8}\u{7}\u{4}\u{2}\u{2}\u{A8}\u{AD}\u{5}\u{1C}\u{F}\u{2}" .
+            "\u{A9}\u{AA}\u{7}\u{3}\u{2}\u{2}\u{AA}\u{AC}\u{5}\u{1C}\u{F}\u{2}" .
+            "\u{AB}\u{A9}\u{3}\u{2}\u{2}\u{2}\u{AC}\u{AF}\u{3}\u{2}\u{2}\u{2}\u{AD}" .
+            "\u{AB}\u{3}\u{2}\u{2}\u{2}\u{AD}\u{AE}\u{3}\u{2}\u{2}\u{2}\u{AE}\u{B0}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{AF}\u{AD}\u{3}\u{2}\u{2}\u{2}\u{B0}\u{B1}\u{7}" .
+            "\u{5}\u{2}\u{2}\u{B1}\u{1B}\u{3}\u{2}\u{2}\u{2}\u{B2}\u{B5}\u{5}\u{1E}" .
+            "\u{10}\u{2}\u{B3}\u{B5}\u{5}\u{20}\u{11}\u{2}\u{B4}\u{B2}\u{3}\u{2}" .
+            "\u{2}\u{2}\u{B4}\u{B3}\u{3}\u{2}\u{2}\u{2}\u{B5}\u{1D}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{B6}\u{B7}\u{7}\u{34}\u{2}\u{2}\u{B7}\u{1F}\u{3}\u{2}\u{2}" .
+            "\u{2}\u{B8}\u{BD}\u{7}\u{31}\u{2}\u{2}\u{B9}\u{BD}\u{9}\u{5}\u{2}" .
+            "\u{2}\u{BA}\u{BD}\u{7}\u{33}\u{2}\u{2}\u{BB}\u{BD}\u{7}\u{32}\u{2}" .
+            "\u{2}\u{BC}\u{B8}\u{3}\u{2}\u{2}\u{2}\u{BC}\u{B9}\u{3}\u{2}\u{2}\u{2}" .
+            "\u{BC}\u{BA}\u{3}\u{2}\u{2}\u{2}\u{BC}\u{BB}\u{3}\u{2}\u{2}\u{2}\u{BD}" .
+            "\u{21}\u{3}\u{2}\u{2}\u{2}\u{BE}\u{BF}\u{9}\u{6}\u{2}\u{2}\u{BF}\u{23}" .
+            "\u{3}\u{2}\u{2}\u{2}\u{11}\u{27}\u{39}\u{3D}\u{42}\u{46}\u{4A}\u{51}" .
+            "\u{8B}\u{93}\u{95}\u{9C}\u{A1}\u{AD}\u{B4}\u{BC}";
 
         protected static $atn;
         protected static $decisionToDFA;
@@ -649,7 +654,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
 
             try {
                 $this->enterOuterAlt($localContext, 1);
-                $this->setState(131);
+                $this->setState(137);
                 $this->errorHandler->sync($this);
 
                 switch ($this->getInterpreter()->adaptivePredict($this->input, 7, $this->ctx)) {
@@ -738,81 +743,97 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                     break;
 
                     case 7:
-                        $localContext = new Context\LocationPriorityExprContext($localContext);
+                        $localContext = new Context\FieldRelationExprContext($localContext);
                         $this->ctx = $localContext;
                         $previousContext = $localContext;
                         $this->setState(106);
-                        $this->match(self::K_LOCATION);
+                        $this->match(self::K_FIELD);
                         $this->setState(107);
-                        $this->match(self::K_PRIORITY);
+                        $this->match(self::K_RELATION);
                         $this->setState(108);
-                        $localContext->op = $this->operator();
+                        $localContext->field = $this->match(self::ID);
                         $this->setState(109);
+                        $localContext->op = $this->operator();
+                        $this->setState(110);
                         $localContext->val = $this->value();
                     break;
 
                     case 8:
-                        $localContext = new Context\CreatedExprContext($localContext);
+                        $localContext = new Context\LocationPriorityExprContext($localContext);
                         $this->ctx = $localContext;
                         $previousContext = $localContext;
-                        $this->setState(111);
-                        $this->match(self::K_CREATED);
                         $this->setState(112);
-                        $localContext->op = $this->operator();
+                        $this->match(self::K_LOCATION);
                         $this->setState(113);
+                        $this->match(self::K_PRIORITY);
+                        $this->setState(114);
+                        $localContext->op = $this->operator();
+                        $this->setState(115);
                         $localContext->val = $this->value();
                     break;
 
                     case 9:
-                        $localContext = new Context\ModifiedExprContext($localContext);
+                        $localContext = new Context\CreatedExprContext($localContext);
                         $this->ctx = $localContext;
                         $previousContext = $localContext;
-                        $this->setState(115);
-                        $this->match(self::K_MODIFIED);
-                        $this->setState(116);
-                        $localContext->op = $this->operator();
                         $this->setState(117);
+                        $this->match(self::K_CREATED);
+                        $this->setState(118);
+                        $localContext->op = $this->operator();
+                        $this->setState(119);
                         $localContext->val = $this->value();
                     break;
 
                     case 10:
-                        $localContext = new Context\UserMetadataExprContext($localContext);
+                        $localContext = new Context\ModifiedExprContext($localContext);
                         $this->ctx = $localContext;
                         $previousContext = $localContext;
-                        $this->setState(119);
-                        $localContext->target = $this->userMetadataTarget();
-                        $this->setState(120);
-                        $localContext->op = $this->operator();
                         $this->setState(121);
+                        $this->match(self::K_MODIFIED);
+                        $this->setState(122);
+                        $localContext->op = $this->operator();
+                        $this->setState(123);
                         $localContext->val = $this->value();
                     break;
 
                     case 11:
-                        $localContext = new Context\CriterionExprContext($localContext);
+                        $localContext = new Context\UserMetadataExprContext($localContext);
                         $this->ctx = $localContext;
                         $previousContext = $localContext;
-                        $this->setState(123);
-                        $localContext->clazz = $this->match(self::ID);
-                        $this->setState(124);
-                        $localContext->op = $this->operator();
                         $this->setState(125);
+                        $localContext->target = $this->userMetadataTarget();
+                        $this->setState(126);
+                        $localContext->op = $this->operator();
+                        $this->setState(127);
                         $localContext->val = $this->value();
                     break;
 
                     case 12:
+                        $localContext = new Context\CriterionExprContext($localContext);
+                        $this->ctx = $localContext;
+                        $previousContext = $localContext;
+                        $this->setState(129);
+                        $localContext->clazz = $this->match(self::ID);
+                        $this->setState(130);
+                        $localContext->op = $this->operator();
+                        $this->setState(131);
+                        $localContext->val = $this->value();
+                    break;
+
+                    case 13:
                         $localContext = new Context\InnerExprContext($localContext);
                         $this->ctx = $localContext;
                         $previousContext = $localContext;
-                        $this->setState(127);
+                        $this->setState(133);
                         $this->match(self::T__1);
-                        $this->setState(128);
+                        $this->setState(134);
                         $this->recursiveExpr(0);
-                        $this->setState(129);
+                        $this->setState(135);
                         $this->match(self::T__2);
                     break;
                 }
                 $this->ctx->stop = $this->input->LT(-1);
-                $this->setState(141);
+                $this->setState(147);
                 $this->errorHandler->sync($this);
 
                 $alt = $this->getInterpreter()->adaptivePredict($this->input, 9, $this->ctx);
@@ -824,7 +845,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                         }
 
                         $previousContext = $localContext;
-                        $this->setState(139);
+                        $this->setState(145);
                         $this->errorHandler->sync($this);
 
                         switch ($this->getInterpreter()->adaptivePredict($this->input, 8, $this->ctx)) {
@@ -833,14 +854,14 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                                 $localContext->left = $previousContext;
 
                                 $this->pushNewRecursionContext($localContext, $startState, self::RULE_expr);
-                                $this->setState(133);
+                                $this->setState(139);
 
                                 if (!($this->precpred($this->ctx, 3))) {
                                     throw new FailedPredicateException($this, '\\$this->precpred(\\$this->ctx, 3)');
                                 }
-                                $this->setState(134);
+                                $this->setState(140);
                                 $this->match(self::K_AND);
-                                $this->setState(135);
+                                $this->setState(141);
                                 $localContext->right = $this->recursiveExpr(4);
                             break;
 
@@ -849,20 +870,20 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                                 $localContext->left = $previousContext;
 
                                 $this->pushNewRecursionContext($localContext, $startState, self::RULE_expr);
-                                $this->setState(136);
+                                $this->setState(142);
 
                                 if (!($this->precpred($this->ctx, 2))) {
                                     throw new FailedPredicateException($this, '\\$this->precpred(\\$this->ctx, 2)');
                                 }
-                                $this->setState(137);
+                                $this->setState(143);
                                 $this->match(self::K_OR);
-                                $this->setState(138);
+                                $this->setState(144);
                                 $localContext->right = $this->recursiveExpr(3);
                             break;
                         }
                     }
 
-                    $this->setState(143);
+                    $this->setState(149);
                     $this->errorHandler->sync($this);
 
                     $alt = $this->getInterpreter()->adaptivePredict($this->input, 9, $this->ctx);
@@ -888,7 +909,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             $this->enterRule($localContext, 18, self::RULE_operator);
 
             try {
-                $this->setState(148);
+                $this->setState(154);
                 $this->errorHandler->sync($this);
 
                 switch ($this->input->LA(1)) {
@@ -903,7 +924,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                     case self::LTE:
                         $localContext = new Context\BuildInOperatorContext($localContext);
                         $this->enterOuterAlt($localContext, 1);
-                        $this->setState(144);
+                        $this->setState(150);
 
                         $localContext->op = $this->input->LT(1);
                         $_la = $this->input->LA(1);
@@ -923,16 +944,16 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                     case self::K_NOT:
                         $localContext = new Context\NotInOperatorContext($localContext);
                         $this->enterOuterAlt($localContext, 2);
-                        $this->setState(145);
+                        $this->setState(151);
                         $this->match(self::K_NOT);
-                        $this->setState(146);
+                        $this->setState(152);
                         $this->match(self::K_IN);
                         break;
 
                     case self::NEQ:
                         $localContext = new Context\NotEQContext($localContext);
                         $this->enterOuterAlt($localContext, 3);
-                        $this->setState(147);
+                        $this->setState(153);
                         $this->match(self::NEQ);
                         break;
 
@@ -960,25 +981,25 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             $this->enterRule($localContext, 20, self::RULE_value);
 
             try {
-                $this->setState(153);
+                $this->setState(159);
                 $this->errorHandler->sync($this);
 
                 switch ($this->getInterpreter()->adaptivePredict($this->input, 11, $this->ctx)) {
                     case 1:
                         $this->enterOuterAlt($localContext, 1);
-                        $this->setState(150);
+                        $this->setState(156);
                         $this->argument();
                     break;
 
                     case 2:
                         $this->enterOuterAlt($localContext, 2);
-                        $this->setState(151);
+                        $this->setState(157);
                         $this->argumentList();
                     break;
 
                     case 3:
                         $this->enterOuterAlt($localContext, 3);
-                        $this->setState(152);
+                        $this->setState(158);
                         $this->argumentRange();
                     break;
                 }
@@ -1004,11 +1025,11 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
 
             try {
                 $this->enterOuterAlt($localContext, 1);
-                $this->setState(155);
+                $this->setState(161);
                 $localContext->a = $this->argument();
-                $this->setState(156);
+                $this->setState(162);
                 $this->match(self::T__3);
-                $this->setState(157);
+                $this->setState(163);
                 $localContext->b = $this->argument();
             } catch (RecognitionException $exception) {
                 $localContext->exception = $exception;
@@ -1032,24 +1053,24 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
 
             try {
                 $this->enterOuterAlt($localContext, 1);
-                $this->setState(159);
-                $this->match(self::T__1);
-                $this->setState(160);
-                $this->argument();
                 $this->setState(165);
+                $this->match(self::T__1);
+                $this->setState(166);
+                $this->argument();
+                $this->setState(171);
                 $this->errorHandler->sync($this);
 
                 $_la = $this->input->LA(1);
                 while ($_la === self::T__0) {
-                    $this->setState(161);
-                    $this->match(self::T__0);
-                    $this->setState(162);
-                    $this->argument();
                     $this->setState(167);
+                    $this->match(self::T__0);
+                    $this->setState(168);
+                    $this->argument();
+                    $this->setState(173);
                     $this->errorHandler->sync($this);
                     $_la = $this->input->LA(1);
                 }
-                $this->setState(168);
+                $this->setState(174);
                 $this->match(self::T__2);
             } catch (RecognitionException $exception) {
                 $localContext->exception = $exception;
@@ -1072,13 +1093,13 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             $this->enterRule($localContext, 26, self::RULE_argument);
 
             try {
-                $this->setState(172);
+                $this->setState(178);
                 $this->errorHandler->sync($this);
 
                 switch ($this->input->LA(1)) {
                     case self::PARAMETER_NAME:
                         $this->enterOuterAlt($localContext, 1);
-                        $this->setState(170);
+                        $this->setState(176);
                         $this->parameter();
                         break;
 
@@ -1088,7 +1109,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                     case self::DOUBLE:
                     case self::STRING:
                         $this->enterOuterAlt($localContext, 2);
-                        $this->setState(171);
+                        $this->setState(177);
                         $this->scalar();
                         break;
 
@@ -1117,7 +1138,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
 
             try {
                 $this->enterOuterAlt($localContext, 1);
-                $this->setState(174);
+                $this->setState(180);
                 $localContext->name = $this->match(self::PARAMETER_NAME);
             } catch (RecognitionException $exception) {
                 $localContext->exception = $exception;
@@ -1140,14 +1161,14 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
             $this->enterRule($localContext, 30, self::RULE_scalar);
 
             try {
-                $this->setState(180);
+                $this->setState(186);
                 $this->errorHandler->sync($this);
 
                 switch ($this->input->LA(1)) {
                     case self::INT:
                         $localContext = new Context\IntContext($localContext);
                         $this->enterOuterAlt($localContext, 1);
-                        $this->setState(176);
+                        $this->setState(182);
                         $localContext->val = $this->match(self::INT);
                         break;
 
@@ -1155,7 +1176,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                     case self::K_TRUE:
                         $localContext = new Context\BooleanContext($localContext);
                         $this->enterOuterAlt($localContext, 2);
-                        $this->setState(177);
+                        $this->setState(183);
 
                         $localContext->val = $this->input->LT(1);
                         $_la = $this->input->LA(1);
@@ -1175,14 +1196,14 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
                     case self::STRING:
                         $localContext = new Context\StringContext($localContext);
                         $this->enterOuterAlt($localContext, 3);
-                        $this->setState(178);
+                        $this->setState(184);
                         $localContext->val = $this->match(self::STRING);
                         break;
 
                     case self::DOUBLE:
                         $localContext = new Context\DoubleContext($localContext);
                         $this->enterOuterAlt($localContext, 4);
-                        $this->setState(179);
+                        $this->setState(185);
                         $localContext->val = $this->match(self::DOUBLE);
                         break;
 
@@ -1211,7 +1232,7 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser {
 
             try {
                 $this->enterOuterAlt($localContext, 1);
-                $this->setState(182);
+                $this->setState(188);
 
                 $localContext->target = $this->input->LT(1);
                 $_la = $this->input->LA(1);
@@ -1721,6 +1742,65 @@ namespace EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\Context 
         {
             if ($visitor instanceof EZQLVisitor) {
                 return $visitor->visitUserMetadataExpr($this);
+            }
+
+            return $visitor->visitChildren($this);
+        }
+    }
+
+    class FieldRelationExprContext extends ExprContext
+    {
+        /**
+         * @var Token|null
+         */
+        public $field;
+
+        /**
+         * @var OperatorContext|null
+         */
+        public $op;
+
+        /**
+         * @var ValueContext|null
+         */
+        public $val;
+
+        public function __construct(ExprContext $context)
+        {
+            parent::__construct($context);
+
+            $this->copyFrom($context);
+        }
+
+        public function K_FIELD(): ?TerminalNode
+        {
+            return $this->getToken(EZQLParser::K_FIELD, 0);
+        }
+
+        public function K_RELATION(): ?TerminalNode
+        {
+            return $this->getToken(EZQLParser::K_RELATION, 0);
+        }
+
+        public function ID(): ?TerminalNode
+        {
+            return $this->getToken(EZQLParser::ID, 0);
+        }
+
+        public function operator(): ?OperatorContext
+        {
+            return $this->getTypedRuleContext(OperatorContext::class, 0);
+        }
+
+        public function value(): ?ValueContext
+        {
+            return $this->getTypedRuleContext(ValueContext::class, 0);
+        }
+
+        public function accept(ParseTreeVisitor $visitor)
+        {
+            if ($visitor instanceof EZQLVisitor) {
+                return $visitor->visitFieldRelationExpr($this);
             }
 
             return $visitor->visitChildren($this);
