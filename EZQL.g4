@@ -35,6 +35,8 @@ expr:
     | K_IS K_MAIN K_LOCATION                                                    #isMainLocationExpr
     | K_IS K_NOT K_MAIN K_LOCATION                                              #isNotMainLocationExpr
     | K_IS flag=(K_VISIBLE|K_HIDDEN)                                            #visibilityExpr
+    | K_FIELD field=ID K_IS K_EMPTY                                             #isFieldEmptyExpr
+    | K_FIELD field=ID K_IS K_NOT K_EMPTY                                       #isNotFieldEmptyExpr
     | K_FIELD field=ID op=operator val=value                                    #fieldExpr
     | K_FIELD K_RELATION field=ID op=operator val=value                         #fieldRelationExpr
     | K_LOCATION K_PRIORITY op=operator val=value                               #locationPriorityExpr
@@ -87,6 +89,7 @@ K_CONTAINS: [Cc][Oo][Nn][Tt][Aa][Ii][Nn][Ss];
 K_CONTENT: [Cc][Oo][Nn][Tt][Ee][Nn][Tt];
 K_CREATED: [Cc][Rr][Ee][Aa][Tt][Ee][Dd];
 K_DESC: [Dd][Ee][Ss][Cc];
+K_EMPTY: [Ee][Mm][Pp][Tt][Yy];
 K_FALSE: [Ff][Aa][Ll][Ss][Ee];
 K_FIELD: [Ff][Ii][Ee][Ll][Dd];
 K_FILTER: [Ff][Ii][Ll][Tt][Ee][Rr];

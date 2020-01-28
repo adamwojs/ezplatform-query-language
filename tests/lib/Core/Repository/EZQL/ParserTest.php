@@ -11,6 +11,7 @@ use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\DateMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FieldRelation;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\IsFieldEmpty;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
@@ -302,6 +303,16 @@ final class ParserTest extends TestCase
         yield 'field relation contains' => [
             'FIELD RELATION foo CONTAINS 10',
             new FieldRelation('foo', Operator::CONTAINS, 10),
+        ];
+
+        yield 'field foo is empty' => [
+            'FIELD foo IS EMPTY ',
+            new IsFieldEmpty('foo', true),
+        ];
+
+        yield 'field foo is not empty' => [
+            'FIELD foo IS NOT EMPTY ',
+            new IsFieldEmpty('foo', false),
         ];
 
         foreach ($this->generateLocationPriorityCriterion() as $name => [$expression, $criterion]) {

@@ -120,6 +120,17 @@ class EZQLBaseVisitor extends AbstractParseTreeVisitor implements EZQLVisitor
      * The default implementation returns the result of calling
      * {@see self::visitChildren()} on `context`.
      */
+    public function visitIsFieldEmptyExpr(Context\IsFieldEmptyExprContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
     public function visitFieldRelationExpr(Context\FieldRelationExprContext $context)
     {
         return $this->visitChildren($context);
@@ -209,6 +220,17 @@ class EZQLBaseVisitor extends AbstractParseTreeVisitor implements EZQLVisitor
      * {@see self::visitChildren()} on `context`.
      */
     public function visitMatchNoneExpr(Context\MatchNoneExprContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
+    public function visitIsNotFieldEmptyExpr(Context\IsNotFieldEmptyExprContext $context)
     {
         return $this->visitChildren($context);
     }

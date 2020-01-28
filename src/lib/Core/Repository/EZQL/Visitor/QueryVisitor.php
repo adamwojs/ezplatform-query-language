@@ -10,6 +10,7 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\DateMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FieldRelation;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\IsFieldEmpty;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\Priority;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
@@ -222,6 +223,16 @@ final class QueryVisitor extends EZQLBaseVisitor
             },
             $context->op->accept($this)
         );
+    }
+
+    public function visitIsFieldEmptyExpr(Context\IsFieldEmptyExprContext $context): Criterion
+    {
+        return new IsFieldEmpty($context->field->getText(), true);
+    }
+
+    public function visitIsNotFieldEmptyExpr(Context\IsNotFieldEmptyExprContext $context): Criterion
+    {
+        return new IsFieldEmpty($context->field->getText(), false);
     }
 
     public function visitFieldExpr(Context\FieldExprContext $context): Criterion

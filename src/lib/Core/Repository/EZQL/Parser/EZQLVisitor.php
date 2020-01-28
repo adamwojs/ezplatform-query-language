@@ -96,6 +96,16 @@ interface EZQLVisitor extends ParseTreeVisitor
     public function visitUserMetadataExpr(Context\UserMetadataExprContext $context);
 
     /**
+     * Visit a parse tree produced by the `isFieldEmptyExpr` labeled alternative
+     * in {@see EZQLParser::expr()}.
+     *
+     * @param Context\IsFieldEmptyExprContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitIsFieldEmptyExpr(Context\IsFieldEmptyExprContext $context);
+
+    /**
      * Visit a parse tree produced by the `fieldRelationExpr` labeled alternative
      * in {@see EZQLParser::expr()}.
      *
@@ -184,6 +194,16 @@ interface EZQLVisitor extends ParseTreeVisitor
      * @return mixed The visitor result.
      */
     public function visitMatchNoneExpr(Context\MatchNoneExprContext $context);
+
+    /**
+     * Visit a parse tree produced by the `isNotFieldEmptyExpr` labeled alternative
+     * in {@see EZQLParser::expr()}.
+     *
+     * @param Context\IsNotFieldEmptyExprContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitIsNotFieldEmptyExpr(Context\IsNotFieldEmptyExprContext $context);
 
     /**
      * Visit a parse tree produced by the `createdExpr` labeled alternative
