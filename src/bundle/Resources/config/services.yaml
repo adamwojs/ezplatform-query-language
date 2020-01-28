@@ -10,6 +10,9 @@ services:
 
     EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL: ~
 
+    EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxyInterface:
+        alias: EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy
+
     EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLProxy: ~
 
     ### eZ Platform Integration
