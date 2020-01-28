@@ -10,8 +10,10 @@ use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\DateMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FieldRelation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOr;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
@@ -286,6 +288,21 @@ final class ParserTest extends TestCase
                 new Field('foo', $op, $value),
             ];
         }
+
+        yield 'field relation in' => [
+            'FIELD RELATION foo IN (1, 10, 100)',
+            new FieldRelation('foo', Operator::IN, [1, 10, 100]),
+        ];
+
+        yield 'field relation not in' => [
+            'FIELD RELATION foo NOT IN (1, 10, 100)',
+            new LogicalNot(new FieldRelation('foo', Operator::IN, [1, 10, 100])),
+        ];
+
+        yield 'field relation contains' => [
+            'FIELD RELATION foo CONTAINS 10',
+            new FieldRelation('foo', Operator::CONTAINS, 10),
+        ];
 
         foreach ($this->generateLocationPriorityCriterion() as $name => [$expression, $criterion]) {
             yield $name => [
