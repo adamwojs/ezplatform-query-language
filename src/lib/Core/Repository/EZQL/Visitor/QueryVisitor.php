@@ -18,11 +18,11 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
-use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\Context;
-use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLParser;
 use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Exception\MissingParameterException;
 use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\EZQLOperator;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\Context;
 use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLBaseVisitor;
+use EzSystems\EzPlatformQueryLanguage\Core\Repository\EZQL\Parser\EZQLParser;
 use RuntimeException;
 
 final class QueryVisitor extends EZQLBaseVisitor
@@ -306,6 +306,40 @@ final class QueryVisitor extends EZQLBaseVisitor
             case EZQLParser::K_MODIFIER:
                 return UserMetadata::MODIFIER;
         }
+    }
+
+    public function visitFulltextExpr(Context\FulltextExprContext $context): Criterion
+    {
+        $options = [];
+        if ($context->fuzziness() !== null) {
+            $options['fuzziness'] = $context->fuzziness()->accept($this);
+        }
+
+        if ($context->boosting() !== null) {
+            $options['boost'] = $context->boosting()->accept($this);
+        }
+
+        return new Criterion\FullText($context->val->accept($this), $options);
+    }
+
+    public function visitBoosting(Context\BoostingContext $context): array
+    {
+        $boosting = [];
+        foreach ($context->fieldBoost() as $fieldBoost) {
+            [$field, $boostFactor] = $fieldBoost->accept($this);
+
+            $boosting[$field] = $boostFactor;
+        }
+
+        return $boosting;
+    }
+
+    public function visitFieldBoost(Context\FieldBoostContext $context): array
+    {
+        return [
+            $context->field->getText(),
+            $context->val->accept($this),
+        ];
     }
 
     public function visitCriterionExpr(Context\CriterionExprContext $context): Criterion

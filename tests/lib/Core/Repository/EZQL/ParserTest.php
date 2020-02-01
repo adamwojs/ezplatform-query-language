@@ -11,6 +11,7 @@ use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\DateMetadata;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FieldRelation;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\FullText;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\IsFieldEmpty;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
@@ -340,6 +341,41 @@ final class ParserTest extends TestCase
             }
         }
 
+        yield 'fulltext' => [
+            'FULLTEXT "foo"',
+            new FullText('foo'),
+        ];
+
+        yield 'fulltext with fuzziness' => [
+            'FULLTEXT "foo" FUZZINESS 0.5',
+            new FullText('foo', [
+                'fuzziness' => 0.5,
+            ]),
+        ];
+
+        yield 'fulltext with boost' => [
+            'FULLTEXT "foo" BOOST bar^2, baz^2.5, foobar^3.0',
+            new FullText('foo', [
+                'boost' => [
+                    'bar' => 2,
+                    'baz' => 2.5,
+                    'foobar' => 3.0,
+                ],
+            ]),
+        ];
+
+        yield 'fulltext with fuzziness and boost' => [
+            'FULLTEXT "foo" FUZZINESS 0.5 BOOST bar^2, baz^2.5, foobar^3.0',
+            new FullText('foo', [
+                'fuzziness' => 0.5,
+                'boost' => [
+                    'bar' => 2,
+                    'baz' => 2.5,
+                    'foobar' => 3.0,
+                ],
+            ]),
+        ];
+
         foreach ($this->generateOperators() as $op => [$tail, $value]) {
             yield "class $op" => [
                 ExampleCriterion::class . " $tail",
@@ -492,7 +528,7 @@ final class ParserTest extends TestCase
         $this->expectErrorMessage('Missing parameter: query');
 
         $this->doVisitQuery(
-            'SELECT LOCATION QUERY FullText = :query',
+            'SELECT LOCATION QUERY CustomCriterion = :query',
             [
                 /* No parameters */
             ]

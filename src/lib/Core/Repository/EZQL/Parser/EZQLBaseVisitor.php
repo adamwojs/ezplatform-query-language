@@ -274,6 +274,17 @@ class EZQLBaseVisitor extends AbstractParseTreeVisitor implements EZQLVisitor
      * The default implementation returns the result of calling
      * {@see self::visitChildren()} on `context`.
      */
+    public function visitFulltextExpr(Context\FulltextExprContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
     public function visitCriterionExpr(Context\CriterionExprContext $context)
     {
         return $this->visitChildren($context);
@@ -319,6 +330,39 @@ class EZQLBaseVisitor extends AbstractParseTreeVisitor implements EZQLVisitor
      * {@see self::visitChildren()} on `context`.
      */
     public function visitNotEQ(Context\NotEQContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
+    public function visitFuzziness(Context\FuzzinessContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
+    public function visitBoosting(Context\BoostingContext $context)
+    {
+        return $this->visitChildren($context);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * The default implementation returns the result of calling
+     * {@see self::visitChildren()} on `context`.
+     */
+    public function visitFieldBoost(Context\FieldBoostContext $context)
     {
         return $this->visitChildren($context);
     }

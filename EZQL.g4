@@ -42,6 +42,7 @@ expr:
     | K_LOCATION K_PRIORITY op=operator val=value                               #locationPriorityExpr
     | K_CREATED op=operator val=value                                           #createdExpr
     | K_MODIFIED op=operator val=value                                          #modifiedExpr
+    | K_FULLTEXT val=value fuzziness? boosting?                                 #fulltextExpr
     | target=userMetadataTarget op=operator val=value                           #userMetadataExpr
     | clazz=ID op=operator val=value                                            #criterionExpr
     | left=expr K_AND right=expr                                                #andExpr
@@ -54,6 +55,15 @@ operator:
     | K_NOT K_IN                                                                #notInOperator
     | NEQ                                                                       #notEQ
     ;
+
+fuzziness:
+    K_FUZZINESS val=value;
+
+boosting:
+    K_BOOST fieldBoost (',' fieldBoost)*;
+
+fieldBoost:
+    field=ID '^' val=value;
 
 value:
     argument|argumentList|argumentRange;
@@ -84,6 +94,7 @@ K_ALL: [Aa][Ll][Ll];
 K_AND: [Aa][Nn][Dd];
 K_ASC: [Aa][Ss][Cc];
 K_BETWEEN: [Bb][Ee][Tt][Ww][Ee][Ee][Nn];
+K_BOOST: [Bb][Oo][Oo][Ss][Tt];
 K_BY: [Bb][Yy];
 K_CONTAINS: [Cc][Oo][Nn][Tt][Aa][Ii][Nn][Ss];
 K_CONTENT: [Cc][Oo][Nn][Tt][Ee][Nn][Tt];
@@ -91,6 +102,8 @@ K_CREATED: [Cc][Rr][Ee][Aa][Tt][Ee][Dd];
 K_DESC: [Dd][Ee][Ss][Cc];
 K_EMPTY: [Ee][Mm][Pp][Tt][Yy];
 K_FALSE: [Ff][Aa][Ll][Ss][Ee];
+K_FULLTEXT: [Ff][Uu][Ll][Ll][Tt][Ee][Xx][Tt];
+K_FUZZINESS: [Ff][Uu][Zz][Zz][Ii][Nn][Ee][Ss][Ss];
 K_FIELD: [Ff][Ii][Ee][Ll][Dd];
 K_FILTER: [Ff][Ii][Ll][Tt][Ee][Rr];
 K_GROUP: [Gg][Rr][Oo][Uu][Pp];
@@ -117,7 +130,6 @@ K_QUERY: [Qq][Uu][Ee][Rr][Yy];
 K_SELECT: [Ss][Ee][Ll][Ee][Cc][Tt];
 K_TRUE: [Tt][Rr][Uu][Ee];
 K_VISIBLE: [Vv][Ii][Ss][Ii][Bb][Ll][Ee];
-
 
 EQ: '=';
 NEQ: '!=';

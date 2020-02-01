@@ -236,6 +236,16 @@ interface EZQLVisitor extends ParseTreeVisitor
     public function visitLocationPriorityExpr(Context\LocationPriorityExprContext $context);
 
     /**
+     * Visit a parse tree produced by the `fulltextExpr` labeled alternative
+     * in {@see EZQLParser::expr()}.
+     *
+     * @param Context\FulltextExprContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitFulltextExpr(Context\FulltextExprContext $context);
+
+    /**
      * Visit a parse tree produced by the `criterionExpr` labeled alternative
      * in {@see EZQLParser::expr()}.
      *
@@ -284,6 +294,33 @@ interface EZQLVisitor extends ParseTreeVisitor
      * @return mixed The visitor result.
      */
     public function visitNotEQ(Context\NotEQContext $context);
+
+    /**
+     * Visit a parse tree produced by {@see EZQLParser::fuzziness()}.
+     *
+     * @param Context\FuzzinessContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitFuzziness(Context\FuzzinessContext $context);
+
+    /**
+     * Visit a parse tree produced by {@see EZQLParser::boosting()}.
+     *
+     * @param Context\BoostingContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitBoosting(Context\BoostingContext $context);
+
+    /**
+     * Visit a parse tree produced by {@see EZQLParser::fieldBoost()}.
+     *
+     * @param Context\FieldBoostContext $context The parse tree.
+     *
+     * @return mixed The visitor result.
+     */
+    public function visitFieldBoost(Context\FieldBoostContext $context);
 
     /**
      * Visit a parse tree produced by {@see EZQLParser::value()}.
