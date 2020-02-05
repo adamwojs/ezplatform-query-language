@@ -1,17 +1,27 @@
 {
   "name": "ezsystems/ezplatform-query-language",
+  "type": "ezplatform-bundle",
   "license": "GPL-2.0-only",
+  "authors": [
+    {
+      "name": "Adam Wójs",
+      "email": "adam.wojs@ez.no"
+    },
+    {
+      "name": "eZ Systems",
+      "homepage": "https://github.com/ezsystems/ezplatform-query-language/contributors"
+    }
+  ],
   "keywords": [
     "ezplatform"
   ],
-  "type": "ezplatform-bundle",
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
     "php": "^7.3",
-    "ezsystems/ezpublish-kernel": "^8.0@dev",
-    "ezsystems/ezplatform-admin-ui": "^2.0@dev",
-    "antlr/antlr4-php-runtime": "^0.3.0"
+    "ext-mbstring": "*",
+    "antlr/antlr4-php-runtime": "^0.3.0",
+    "ezsystems/ezpublish-kernel": "^8.0@dev"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.2",
