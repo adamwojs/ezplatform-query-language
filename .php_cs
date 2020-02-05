@@ -1,6 +1,6 @@
 <?php
 
-return EzSystems\EzPlatformCodeStyle\PhpCsFixer\Config::create()->setFinder(
+return EzSystems\EzPlatformCodeStyle\PhpCsFixer\EzPlatformInternalConfigFactory::build()->setFinder(
     PhpCsFixer\Finder::create()
         ->in(__DIR__ . '/src')
         ->in(__DIR__ . '/tests')
